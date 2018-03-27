@@ -1,0 +1,22 @@
+---
+- name: Setup of NGinx to Target
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Install NGinx
+    apt:
+      name: nginx
+      state: latest
+      update_cache: yes
+
+  - name: Insert Index Page
+    template:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
+      enabled: yes
